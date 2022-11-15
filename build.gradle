@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'war'
+ 
+// JDK version source compatibility
+sourceCompatibility = 1.8
+ 
+// project version
+version = '1.0'
+ 
+// War file name
+war.baseName = 'sample'
+ 
+// Web directory, this overrides the default value "webapp"
+project.webAppDirName = 'src/main/webapp'
+project.buildDir = 'target'
+ 
+ 
+// Set repository
+repositories {
+    mavenCentral()
+    maven { url "https://www.egovframe.go.kr/maven/" }
+}
+ 
+// Set source directory
+sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+                srcDir 'src/test/java'
+            }
+	        resources {
+	            srcDir 'src/main/resources'
+	            srcDir 'src/test/resources'
+	        }
+        }
+    }
+ 
+// dependencies to run on tomcat, are mandatory for tomcat plugin
+dependencies {
+    implementation(group: 'egovframework.rte', name: 'egovframework.rte.ptl.mvc', version:'3.10.0') {
+exclude(module: 'commons-logging')
+    }
+    implementation group: 'egovframework.rte', name: 'egovframework.rte.psl.dataaccess', version:'3.10.0'
+    implementation group: 'egovframework.rte', name: 'egovframework.rte.fdl.idgnr', version:'3.10.0'
+    implementation group: 'egovframework.rte', name: 'egovframework.rte.fdl.property', version:'3.10.0'
+    implementation group: 'javax.servlet', name: 'jstl', version:'1.2'
+    implementation group: 'taglibs', name: 'standard', version:'1.1.2'
+    implementation group: 'org.antlr', name: 'antlr', version:'3.5'
+    implementation group: 'org.hsqldb', name: 'hsqldb', version:'2.3.2'
+    implementation group: 'javax.servlet', name: 'servlet-api', version:'2.5'
+}
